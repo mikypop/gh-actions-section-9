@@ -20,9 +20,12 @@ jobs:
       - name: Get code
         uses: actions/checkout@v3
       - name: Load and Cache Dependencies
+        id: cache-deps
         uses: ./.github/actions/cached-deps
         with:
           caching: 'false' # Sends value of false in the caching input of the custom action
+      - name: Outputs information
+        run: echo "Cache used? ${{ steps.cache-deps.outputs.used-cache }}"
       - name: Test code
         id: run-tests
         run: npm run test
